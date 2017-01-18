@@ -4,9 +4,15 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-
-var index = require('./routes/index');
-var users = require('./routes/users');
+var cors = require('cors');
+var multer = require('multer');
+var login = require('./routes/login');
+var getoffers = require('./routes/getoffer');
+var uploadFile = require('./routes/uploadfile');
+var fs = require('fs');
+var DIR = __dirname+'./uploads';
+var upload = multer({dest: DIR});
+var apply = require('./routes/apply');
 
 var app = express();
 
@@ -22,9 +28,40 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', index);
-app.use('/users', users);
+var corsOptions = {
+  origin: 'http://localhost:4200',
+  optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
+  credentials: true
+}
+app.use(cors(corsOptions));
 
+/*app.use(multer({
+  dest: DIR,
+  rename: function (fieldname, filename) {
+    return filename + Date.now();
+  },
+  onFileUploadStart: function (file) {
+    console.log(file.originalname + ' is starting ...');
+  },
+  onFileUploadComplete: function (file) {
+    console.log(file.fieldname + ' uploaded to  ' + file.path);
+  }
+}));*/
+
+app.post('/login', login.login);
+app.post('/getoffers', getoffers.getoffers);
+app.post('/filter', getoffers.filter);
+app.post('/apply', apply.apply);
+app.post('/appliedoffers', getoffers.appliedOffer);
+app.post('/partneroffers', getoffers.partnerOffers);
+
+app.get('/uploadfile', function (req, res) {
+  res.end('file catcher example');
+});
+
+app.post('/uploadfile', multer({dest: "./uploads/"}).array("uploads", 12), function(req, res) {
+    res.send(200);
+});
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   var err = new Error('Not Found');
