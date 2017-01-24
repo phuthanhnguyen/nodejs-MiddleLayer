@@ -19,3 +19,22 @@ exports.login = function(req, res) {
 	   		}
 	   });
 };
+
+//get student object from app id
+exports.getStudentFromApp = function(req, res) {
+	var auth = req.body.auth;
+	var studentId = req.body.studentId;
+	console.log(req.body);
+	
+	request
+	   .get('http://'+adr+':8080/IMS-war/resources/hello/student?id='+studentId)
+	   .set('Authorization', "Basic "+auth)
+	   .set('Accept', 'application/json')
+	   .end(function(err, response){
+	   		if (response != undefined){
+	   			res.json(response.body);
+	   		} else {
+	   			res.json({});
+	   		}
+	   });
+};

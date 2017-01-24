@@ -6,9 +6,11 @@ exports.apply = function(req, res) {
 	var auth = req.body.auth;
 	var offerId = req.body.offerId;
 	var company = req.body.company;
+	var message = req.body.message;
 	var json = JSON.stringify({
 		'offerId': offerId,
-		'partnerName': company
+		'partnerName': company,
+		'coverLetter': message
 	})
 	console.log(json);
 

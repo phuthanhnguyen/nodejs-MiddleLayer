@@ -13,6 +13,10 @@ var fs = require('fs');
 var DIR = __dirname+'./uploads';
 var upload = multer({dest: DIR});
 var apply = require('./routes/apply');
+var gestionCV = require('./routes/gestionCV');
+var getCandidates = require('./routes/getCandidates');
+var setDecision = require('./routes/setDecision');
+var getConventions = require('./routes/getConvention');
 
 var app = express();
 
@@ -54,6 +58,14 @@ app.post('/filter', getoffers.filter);
 app.post('/apply', apply.apply);
 app.post('/appliedoffers', getoffers.appliedOffer);
 app.post('/partneroffers', getoffers.partnerOffers);
+app.post('/getcandidates', getCandidates.getCandidates);
+app.post('/deletecv', gestionCV.deleteCV);
+app.post('/setdecision', setDecision.setDecision);
+app.post('/getapplications', getCandidates.getApplications);
+app.post('/getapplicationscc', getCandidates.getApplicationsCC);
+app.post('/getstudentfromapp', login.getStudentFromApp);
+app.post('/getofferfromapp', getoffers.getOfferFromApp);
+app.post('/getconventions', getConventions.getConventions);
 
 app.get('/uploadfile', function (req, res) {
   res.end('file catcher example');
