@@ -7,10 +7,13 @@ exports.apply = function(req, res) {
 	var offerId = req.body.offerId;
 	var company = req.body.company;
 	var message = req.body.message;
+	var cvId = req.body.cvId;
+
 	var json = JSON.stringify({
 		'offerId': offerId,
 		'partnerName': company,
-		'coverLetter': message
+		'coverLetter': message,
+		'cvId': cvId	
 	})
 	console.log(json);
 

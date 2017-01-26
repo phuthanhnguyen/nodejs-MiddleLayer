@@ -109,12 +109,12 @@ exports.partnerOffers = function(req, res) {
 exports.getOfferFromApp = function(req, res) {
 	var auth = req.body.auth;
 	var offerId = req.body.offerId;
-	var partnerId = req.body.partnerId;
+	var partnerName = req.body.partnerName;
 	console.log(req.body);
-	
+	console.log('http://'+adr+':8080/IMS-war/resources/hello/ofoi?oid='+offerId+'&pname='+partnerName);
 	//post
 	request
-	   .get('http://'+adr+':8080/IMS-war/resources/hello/afoi?oid='+offerId+'&pid='+partnerId)
+	   .get('http://'+adr+':8080/IMS-war/resources/hello/ofoi?oid='+offerId+'&pname='+partnerName)
 	   .set('Authorization', "Basic "+auth)
 	   .set('Accept', 'application/json')
 	   .end(function(err, response){

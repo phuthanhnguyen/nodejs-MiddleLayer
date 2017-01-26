@@ -32,12 +32,13 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-var corsOptions = {
+/*var corsOptions = {
   origin: 'http://localhost:4200',
+  //origin: 'http://10.32.3.71:4200',
   optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
   credentials: true
-}
-app.use(cors(corsOptions));
+}*/
+app.use(cors(/*corsOptions*/));
 
 /*app.use(multer({
   dest: DIR,
@@ -66,7 +67,10 @@ app.post('/getapplicationscc', getCandidates.getApplicationsCC);
 app.post('/getstudentfromapp', login.getStudentFromApp);
 app.post('/getofferfromapp', getoffers.getOfferFromApp);
 app.post('/getconventions', getConventions.getConventions);
-
+app.post('/setConventionsDecision', getConventions.conventionDecision);
+app.post('/getCvs', gestionCV.getCVs);
+app.post('/getAppFromStudentID', getCandidates.getAppFromStudentID);
+app.post('/renamecv', gestionCV.renameCV);
 app.get('/uploadfile', function (req, res) {
   res.end('file catcher example');
 });
